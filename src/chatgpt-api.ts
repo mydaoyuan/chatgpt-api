@@ -47,6 +47,7 @@ export class ChatGPTAPI {
    * @param fetch - Optional override for the `fetch` implementation to use. Defaults to the global `fetch` function.
    */
   constructor(opts: types.ChatGPTAPIOptions) {
+    console.log('tangdy')
     const {
       apiKey,
       apiBaseUrl = 'https://api.openai.com/v1',
@@ -314,7 +315,7 @@ export class ChatGPTAPI {
   }
 
   protected async _buildMessages(text: string, opts: types.SendMessageOptions) {
-    const { systemMessage = this._systemMessage } = opts
+    const { systemMessage = this._systemMessage, presetMessage } = opts
     let { parentMessageId } = opts
 
     const userLabel = USER_LABEL_DEFAULT
@@ -328,6 +329,9 @@ export class ChatGPTAPI {
         role: 'system',
         content: systemMessage
       })
+    }
+    if (presetMessage) {
+      messages.push(...presetMessage)
     }
 
     const systemMessageOffset = messages.length

@@ -39,6 +39,7 @@ export type SendMessageOptions = {
   messageId?: string
   stream?: boolean
   systemMessage?: string
+  presetMessage?: openai.ChatCompletionRequestMessage[]
   timeoutMs?: number
   onProgress?: (partialResponse: ChatMessage) => void
   abortSignal?: AbortSignal
